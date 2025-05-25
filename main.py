@@ -97,7 +97,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
         response = client.models.generate_content(
             model=model,
             contents=contents,
-            config=generate_content_config
+            generation_config=generate_content_config
         )
         
         # Parse the response to extract JSON objects
@@ -146,7 +146,7 @@ def generate_json_from_document(document_text: str, json_example: str, api_key: 
         Generated JSON objects:
         """
         
-        response = model.generate_content(prompt,config=generate_content_config)
+        response = model.generate_content(prompt,generation_config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
@@ -190,7 +190,7 @@ def generate_similar_json(json_example: str, api_key: str, num_samples: int = 1)
         Generated JSON objects:
         """
         
-        response = model.generate_content(prompt,config=generate_content_config)
+        response = model.generate_content(prompt,generation_config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
