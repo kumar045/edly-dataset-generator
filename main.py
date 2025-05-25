@@ -22,8 +22,8 @@ generate_content_config = types.GenerateContentConfig(
 def configure_gemini(api_key: str):
     """Configure Gemini API with the provided key"""
     try:
-        genai.Client(api_key=api_key)
-        return True
+        client = genai.Client(api_key=api_key)
+        return client 
     except Exception as e:
         st.error(f"Failed to configure Gemini API: {str(e)}")
         return False
@@ -55,8 +55,6 @@ def extract_text_from_docx(docx_file):
 def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, num_samples: int = 1) -> List[Dict]:
     """Process PDF directly with Gemini 2.5 Pro using the new API"""
     try:
-        # Use the new Gemini client for direct PDF processing
-        client = genai.Client(api_key=api_key)
         model = "gemini-2.0-flash"  # Using available model
         
         # Read PDF file as bytes
@@ -123,8 +121,6 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
 def generate_json_from_document(document_text: str, json_example: str, api_key: str, num_samples: int = 1) -> List[Dict]:
     """Generate JSON data from document using Gemini API"""
     try:
-        client = genai.Client(api_key=api_key)
-        
         model = "gemini-2.0-flash"  # Using available model
         
         prompt = f"""
@@ -179,8 +175,6 @@ def generate_json_from_document(document_text: str, json_example: str, api_key: 
 def generate_similar_json(json_example: str, api_key: str, num_samples: int = 1) -> List[Dict]:
     """Generate similar JSON structures based on example"""
     try:
-        client = genai.Client(api_key=api_key)
-
         model = "gemini-2.0-flash"  # Using available model
         
         prompt = f"""
@@ -246,11 +240,8 @@ def main():
         api_key = st.text_input("Google Gemini API Key", type="password", help="Enter your Google Gemini API key")
         
         if api_key:
-            if configure_gemini(api_key):
-                st.success("✅ API Key configured successfully!")
-            else:
-                st.error("❌ Failed to configure API Key")
-        
+           client = configure_gemini(api_key)
+            
         st.markdown("---")
         st.markdown("### 📖 How to get API Key")
         st.markdown("""
