@@ -123,8 +123,9 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
 def generate_json_from_document(document_text: str, json_example: str, api_key: str, num_samples: int = 1) -> List[Dict]:
     """Generate JSON data from document using Gemini API"""
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        client = genai.Client(api_key=api_key)
+        
+        model = "gemini-2.0-flash"  # Using available model
         
         prompt = f"""
         Based on the following document and JSON example format, generate {num_samples} similar JSON objects that extract relevant information from the document.
@@ -145,7 +146,7 @@ def generate_json_from_document(document_text: str, json_example: str, api_key: 
         Generated JSON objects:
         """
         
-        response = model.generate_content(prompt,generation_config=generate_content_config)
+        response = client.models.generate_content(model=model,prompt,config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
@@ -169,8 +170,9 @@ def generate_json_from_document(document_text: str, json_example: str, api_key: 
 def generate_similar_json(json_example: str, api_key: str, num_samples: int = 1) -> List[Dict]:
     """Generate similar JSON structures based on example"""
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        client = genai.Client(api_key=api_key)
+
+        model = "gemini-2.0-flash"  # Using available model
         
         prompt = f"""
         Based on the following JSON example, generate {num_samples} similar JSON objects with the same structure but different realistic data.
@@ -189,7 +191,7 @@ def generate_similar_json(json_example: str, api_key: str, num_samples: int = 1)
         Generated JSON objects:
         """
         
-        response = model.generate_content(prompt,generation_config=generate_content_config)
+        response = client.models.generate_content(model=model,prompt,config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
