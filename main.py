@@ -246,14 +246,6 @@ def generate_similar_json(json_example: str, client: genai.Client, num_samples: 
         st.error(f"Error generating similar JSON: {str(e)}")
         return []
 
-def validate_json(json_string: str) -> tuple[bool, str]:
-    """Validate JSON string"""
-    try:
-        json.loads(json_string)
-        return True, "Valid JSON"
-    except json.JSONDecodeError as e:
-        return False, f"Invalid JSON: {str(e)}"
-
 def main():
     st.title("📊 JSON Dataset Generator")
     st.markdown("Generate JSON datasets using Google Gemini API with direct PDF processing support")
@@ -285,9 +277,6 @@ def main():
         st.warning("⚠️ Please enter your Google Gemini API key in the sidebar to continue.")
         st.stop() # Stop execution if no API key is provided
     
-    # If execution reaches here, api_key was provided.
-    # gemini_client is either a genai.Client instance or False.
-
     # Main interface tabs
     tab1, tab2, tab3 = st.tabs(["📄 Document + JSON Example", "🔄 JSON Structure Generator", "📊 Dataset Manager"])
     
@@ -330,21 +319,11 @@ def main():
                         document_text_content = extract_text_from_docx(uploaded_file)
             elif manual_document_text: # If no file uploaded, use manual text
                  document_text_content = manual_document_text
-        
+
+        col2, col3 = st.columns([1, 1])
         with col2:
-            st.subheader("📋 JSON Example")
-            json_example = st.text_area("JSON Example Format:", height=200)
-            
-            is_valid, validation_msg = validate_json(json_example)
-            if is_valid:
-                st.success(f"✅ {validation_msg}")
-            else:
-                st.error(f"❌ {validation_msg}")
-        
-        col3, col4 = st.columns([1, 1])
-        with col3:
             num_samples = st.number_input("Number of samples to generate:", min_value=1, max_value=20, value=3, key="num_samples_tab1")
-        with col4:
+        with col3:
             st.write("") # Spacer
             st.write("") # Spacer
             generate_btn1 = st.button("🚀 Generate JSON Dataset", key="gen1", use_container_width=True)
