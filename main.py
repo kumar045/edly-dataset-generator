@@ -417,8 +417,7 @@ def main():
         
         with col1:
             st.subheader("📋 JSON Example")
-            json_template = st.text_area("JSON Template:", height=300,
-                                        value='{\n  "product_name": "Laptop",\n  "price": 999.99,\n  "category": "Electronics",\n  "in_stock": true,\n  "specifications": {\n    "brand": "TechCorp",\n    "model": "TC-2024"\n  }\n}', key="json_template_tab2")
+            json_template = st.text_area("JSON Template:", height=300, key="json_template_tab2")
             
             is_valid2, validation_msg2 = validate_json(json_template)
             if is_valid2:
