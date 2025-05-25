@@ -86,7 +86,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
                         mime_type="application/pdf",
                         data=pdf_bytes
                     ),
-                    types.Part.from_text(prompt)
+                    types.Part.from_text(text=prompt)
                 ]
             )
         ]
