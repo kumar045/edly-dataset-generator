@@ -333,10 +333,6 @@ def main():
                 st.error("🔴 Gemini client is not configured or initialization failed. Please check your API key in the sidebar and retry.")
                 st.stop()
 
-            if not json_example or not is_valid:
-                st.error("❌ Please provide a valid JSON example format.")
-                st.stop()
-
             generated_data = []
             
             if uploaded_file and uploaded_file.type == "application/pdf" and processing_method == "Direct Gemini Processing (Recommended)":
