@@ -256,7 +256,7 @@ def validate_json(json_string: str) -> tuple[bool, str]:
     except json.JSONDecodeError as e:
         return False, f"Invalid JSON: {str(e)}"
 
- def main():
+def main():
     st.title("📊 JSON Dataset Generator")
     st.markdown("Generate JSON datasets using Google Gemini API with direct PDF processing support")
     
@@ -439,100 +439,4 @@ def validate_json(json_string: str) -> tuple[bool, str]:
 
             if not json_template or not is_valid2:
                 st.error("❌ Please provide a valid JSON template.")
-                st.stop()
-
-            with st.spinner("Generating similar JSON structures..."):
-                generated_data2 = generate_similar_json(json_template, gemini_client, num_samples2)
-                
-            if generated_data2:
-                st.success(f"✅ Generated {len(generated_data2)} JSON objects!")
-                
-                if 'generated_datasets' not in st.session_state:
-                    st.session_state.generated_datasets = []
-                
-                dataset_name = f"Structure_Dataset_{len(st.session_state.generated_datasets) + 1}"
-                st.session_state.generated_datasets.append({
-                    'name': dataset_name,
-                    'data': generated_data2,
-                    'type': 'structure_based'
-                })
-                
-                st.subheader("📊 Generated Data Preview")
-                for i, json_obj in enumerate(generated_data2[:3]): 
-                    with st.expander(f"Sample {i+1}"):
-                        st.json(json_obj)
-                
-                if len(generated_data2) > 3:
-                    st.info(f"... and {len(generated_data2) - 3} more samples. Check the Dataset Manager tab to view all.")
-            elif generate_btn2: # if button was pressed but no data
-                 st.error("Failed to generate similar JSON data. Please check your template and API key, then try again.")
-
-    with tab3:
-        st.header("Dataset Manager")
-        st.markdown("Manage and export your generated datasets.")
-        
-        if 'generated_datasets' not in st.session_state or not st.session_state.generated_datasets:
-            st.info("📭 No datasets generated yet. Use the other tabs to create datasets.")
-        else:
-            dataset_names = [ds['name'] for ds in st.session_state.generated_datasets]
-            selected_dataset_name = st.selectbox("Select Dataset:", dataset_names)
-            
-            if selected_dataset_name:
-                dataset = next((ds for ds in st.session_state.generated_datasets if ds['name'] == selected_dataset_name), None)
-                
-                if dataset:
-                    col1_dm, col2_dm = st.columns([2, 1])
-                    
-                    with col1_dm:
-                        st.subheader(f"📊 {selected_dataset_name}")
-                        st.write(f"**Type:** {dataset['type'].replace('_', ' ').title()}")
-                        st.write(f"**Records:** {len(dataset['data'])}")
-                        
-                        with st.expander("View All Data", expanded=False):
-                            st.json(dataset['data'])
-                    
-                    with col2_dm:
-                        st.subheader("📤 Export Options")
-                        
-                        json_data_export = json.dumps(dataset['data'], indent=2)
-                        st.download_button(
-                            label="💾 Download as JSON",
-                            data=json_data_export,
-                            file_name=f"{selected_dataset_name}.json",
-                            mime="application/json",
-                            key=f"dl_json_{selected_dataset_name}"
-                        )
-                        
-                        try:
-                            # Attempt to normalize, which might fail for very complex/heterogeneous structures
-                            if dataset['data'] and isinstance(dataset['data'], list) and all(isinstance(item, dict) for item in dataset['data']):
-                                df = pd.json_normalize(dataset['data'])
-                                csv_data = df.to_csv(index=False).encode('utf-8')
-                                st.download_button(
-                                    label="📊 Download as CSV",
-                                    data=csv_data,
-                                    file_name=f"{selected_dataset_name}.csv",
-                                    mime="text/csv",
-                                    key=f"dl_csv_{selected_dataset_name}"
-                                )
-                            else:
-                                st.caption("CSV export not available: Data is not a list of flat dictionaries.")
-
-                        except Exception as e:
-                            st.caption(f"CSV export not available for this dataset structure. Error: {e}")
-                        
-                        st.markdown("---")
-                        if st.button("🗑️ Delete This Dataset", key=f"delete_{selected_dataset_name}", type="primary"):
-                            st.session_state.generated_datasets = [
-                                ds for ds in st.session_state.generated_datasets 
-                                if ds['name'] != selected_dataset_name
-                            ]
-                            st.success(f"Dataset '{selected_dataset_name}' deleted.")
-                            st.rerun() # Use st.rerun to refresh the UI after deletion
-            
-            if st.session_state.generated_datasets: # Show clear all only if there are datasets
-                st.markdown("---")
-                if st.button("🗑️ Clear All Datasets", type="secondary"): # Changed to secondary for less emphasis
-                    st.session_state.generated_datasets = []
-                    st.success("All datasets cleared.")
-                    st.rerun() # Refresh UI
+ 
