@@ -333,8 +333,7 @@ def main():
         
         with col2:
             st.subheader("📋 JSON Example")
-            json_example = st.text_area("JSON Example Format:", height=200,
-                                        value='{\n  "name": "John Doe",\n  "age": 30,\n  "occupation": "Software Engineer"\n}', key="json_example_tab1")
+            json_example = st.text_area("JSON Example Format:", height=200)
             
             is_valid, validation_msg = validate_json(json_example)
             if is_valid:
