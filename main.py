@@ -62,7 +62,7 @@ def extract_text_from_docx(docx_file):
 def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.Client, num_samples: int = 1) -> List[Dict]:
     """Process PDF directly with Gemini using the new API"""
     try:
-        model = "gemini-1.5-flash" # Using an available and capable model for PDF processing
+        model = "gemini-2.0-flash" # Using an available and capable model for PDF processing
 
         # Read PDF file as bytes
         pdf_file.seek(0) # Ensure pointer is at the beginning
@@ -138,7 +138,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.
 def generate_json_from_document(document_text: str, json_example: str, client: genai.Client, num_samples: int = 1) -> List[Dict]:
     """Generate JSON data from document using Gemini API"""
     try:
-        model = "gemini-1.5-flash"
+        model = "gemini-2.0-flash"
 
         prompt = f"""
         Based on the following document and JSON example format, generate {num_samples} similar JSON objects that extract relevant information from the document.
@@ -195,7 +195,7 @@ def generate_json_from_document(document_text: str, json_example: str, client: g
 def generate_similar_json(json_example: str, client: genai.Client, num_samples: int = 1) -> List[Dict]:
     """Generate similar JSON structures based on example"""
     try:
-        model = "gemini-1.5-flash" 
+        model = "gemini-2.0-flash" 
 
         prompt = f"""
         Based on the following JSON example, generate {num_samples} similar JSON objects with the same structure but different realistic data.
