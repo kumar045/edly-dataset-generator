@@ -239,6 +239,8 @@ def main():
         st.header("🔧 Configuration")
         api_key = st.text_input("Google Gemini API Key", type="password", help="Enter your Google Gemini API key")
         
+        client = None # Initialize gemini_client
+        
         if api_key:
            client = configure_gemini(api_key)
             
