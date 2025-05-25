@@ -22,7 +22,7 @@ generate_content_config = types.GenerateContentConfig(
 def configure_gemini(api_key: str):
     """Configure Gemini API with the provided key"""
     try:
-        genai.configure(api_key=api_key)
+        genai.Client(api_key=api_key)
         return True
     except Exception as e:
         st.error(f"Failed to configure Gemini API: {str(e)}")
