@@ -419,12 +419,6 @@ def main():
             st.subheader("📋 JSON Example")
             json_template = st.text_area("JSON Template:", height=300, key="json_template_tab2")
             
-            is_valid2, validation_msg2 = validate_json(json_template)
-            if is_valid2:
-                st.success(f"✅ {validation_msg2}")
-            else:
-                st.error(f"❌ {validation_msg2}")
-        
         with col2:
             st.subheader("⚙️ Generation Settings")
             num_samples2 = st.number_input("Number of samples:", min_value=1, max_value=50, value=5, key="samples2")
