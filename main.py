@@ -145,8 +145,17 @@ def generate_json_from_document(document_text: str, json_example: str, api_key: 
 
         Generated JSON objects:
         """
+
+        contents = [
+        types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text=prompt),
+            ],
+        ),
+        ]
         
-        response = client.models.generate_content(model=model,prompt,config=generate_content_config)
+        response = client.models.generate_content(model=model, contents=prompt, config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
@@ -190,8 +199,15 @@ def generate_similar_json(json_example: str, api_key: str, num_samples: int = 1)
 
         Generated JSON objects:
         """
-        
-        response = client.models.generate_content(model=model,prompt,config=generate_content_config)
+        contents = [
+        types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text=prompt),
+            ],
+        ),
+        ]
+        response = client.models.generate_content(model=model, contents=prompt, config=generate_content_config)
         
         # Parse the response to extract JSON objects
         json_objects = []
