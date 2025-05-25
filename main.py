@@ -369,8 +369,7 @@ def main():
                     uploaded_file.seek(0) # Reset for fallback extraction
                     fallback_text = extract_text_from_pdf(uploaded_file)
                     if fallback_text:
-                        with st.spinner("Fallback: Processing extracted text with Gemini..."):
-                            generated_data = generate_json_from_document(fallback_text, json_example, gemini_client, num_samples)
+                        generated_data = generate_json_from_document(fallback_text, json_example, gemini_client, num_samples)
                     else:
                         st.error("Fallback failed: Could not extract text from PDF.")
             elif document_text_content: # Covers TXT, DOCX, PDF (text extraction), and manual paste
