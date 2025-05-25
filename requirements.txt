@@ -1,0 +1,7 @@
+streamlit
+google-generativeai
+google-genai
+pandas
+PyPDF2
+python-docx
+typing-extensions
