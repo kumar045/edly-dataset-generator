@@ -1,6 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
-from google import genai as new_genai
+from google import genai
 from google.genai import types
 import json
 import pandas as pd
@@ -57,7 +56,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
     """Process PDF directly with Gemini 2.5 Pro using the new API"""
     try:
         # Use the new Gemini client for direct PDF processing
-        client = new_genai.Client(api_key=api_key)
+        client = genai.Client(api_key=api_key)
         model = "gemini-2.0-flash"  # Using available model
         
         # Read PDF file as bytes
