@@ -102,7 +102,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.
         response = client.models.generate_content(
             model=model,
             contents=contents,
-            generation_config=generate_content_config # Use generation_config
+            config=generate_content_config # Use generation_config
         )
         
         json_objects = []
@@ -166,7 +166,7 @@ def generate_json_from_document(document_text: str, json_example: str, client: g
         response = client.models.generate_content(
             model=model, 
             contents=request_contents, 
-            generation_config=generate_content_config # Use generation_config
+            config=generate_content_config # Use generation_config
         )
 
         json_objects = []
@@ -220,7 +220,7 @@ def generate_similar_json(json_example: str, client: genai.Client, num_samples: 
         response = client.models.generate_content(
             model=model, 
             contents=request_contents, 
-            generation_config=generate_content_config # Use generation_config
+            config=generate_content_config # Use generation_config
         )
         
         json_objects = []
