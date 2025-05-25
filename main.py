@@ -133,8 +133,6 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.
         return json_objects[:num_samples] if json_objects else []
 
     except Exception as e:
-        st.error(f"Error processing PDF directly with Gemini: {str(e)}")
-        st.info("Falling back to text extraction method if direct processing failed earlier in the main flow.")
         return []
 
 def generate_json_from_document(document_text: str, json_example: str, client: genai.Client, num_samples: int = 1) -> List[Dict]:
