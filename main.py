@@ -366,7 +366,6 @@ def main():
                     generated_data = process_pdf_directly_with_gemini(uploaded_file, json_example, gemini_client, num_samples)
                 
                 if not generated_data:
-                    st.warning("Direct PDF processing returned no data or failed. Attempting fallback with text extraction...")
                     uploaded_file.seek(0) # Reset for fallback extraction
                     fallback_text = extract_text_from_pdf(uploaded_file)
                     if fallback_text:
