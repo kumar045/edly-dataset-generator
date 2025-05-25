@@ -75,6 +75,8 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.
         JSON Example Format:
         {json_example}
 
+        Please strictly follow the json format 
+
         Instructions:
         1. Analyze the PDF document content thoroughly.
         2. Extract relevant information that matches the structure of the JSON example.
@@ -149,6 +151,8 @@ def generate_json_from_document(document_text: str, json_example: str, client: g
         JSON Example Format:
         {json_example}
 
+        Please strictly follow the json format 
+
         Instructions:
         1. Extract relevant information from the document that matches the structure of the JSON example.
         2. Generate {num_samples} JSON objects with the same structure.
@@ -202,6 +206,8 @@ def generate_similar_json(json_example: str, client: genai.Client, num_samples: 
 
         JSON Example:
         {json_example}
+
+        Please strictly follow the json format 
 
         Instructions:
         1. Maintain the exact same JSON structure and field names.
