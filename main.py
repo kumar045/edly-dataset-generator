@@ -97,7 +97,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
         response = client.models.generate_content(
             model=model,
             contents=contents,
-            generation_config=generate_content_config
+            config=generate_content_config
         )
         
         # Parse the response to extract JSON objects
