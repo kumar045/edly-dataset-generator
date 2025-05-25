@@ -432,10 +432,6 @@ def main():
                 st.error("🔴 Gemini client is not configured or initialization failed. Please check your API key in the sidebar and retry.")
                 st.stop()
 
-            if not json_template or not is_valid2:
-                st.error("❌ Please provide a valid JSON template.")
-                st.stop()
-
             with st.spinner("Generating similar JSON structures..."):
                 generated_data2 = generate_similar_json(json_template, gemini_client, num_samples2)
                 
