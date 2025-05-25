@@ -55,7 +55,7 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, api_key: str, 
     try:
         # Use the new Gemini client for direct PDF processing
         client = new_genai.Client(api_key=api_key)
-        model = "gemini-2.0-flash-exp"  # Using available model
+        model = "gemini-2.0-flash"  # Using available model
         
         # Read PDF file as bytes
         pdf_bytes = pdf_file.read()
