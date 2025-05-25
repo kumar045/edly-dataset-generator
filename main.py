@@ -285,9 +285,6 @@ def main():
         st.warning("⚠️ Please enter your Google Gemini API key in the sidebar to continue.")
         st.stop() # Stop execution if no API key is provided
     
-    # If execution reaches here, api_key was provided.
-    # gemini_client is either a genai.Client instance or False.
-
     # Main interface tabs
     tab1, tab2, tab3 = st.tabs(["📄 Document + JSON Example", "🔄 JSON Structure Generator", "📊 Dataset Manager"])
     
