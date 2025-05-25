@@ -70,7 +70,8 @@ def process_pdf_directly_with_gemini(pdf_file, json_example: str, client: genai.
         pdf_file.seek(0)  # Reset file pointer for potential reuse
 
         prompt = f"""
-        Based on the content of this PDF document and the JSON example format provided, generate {num_samples} similar JSON objects that extract relevant information from the document.
+        You are an expert in dataset generation for the LLM.
+        Based on the content of this PDF document and the JS.ON example format provided, generate {num_samples} similar JSON objects that extract relevant information from the document.
 
         JSON Example Format:
         {json_example}
@@ -143,6 +144,7 @@ def generate_json_from_document(document_text: str, json_example: str, client: g
         model = "gemini-2.5-flash-preview-05-20"
 
         prompt = f"""
+        You are an expert in dataset generation for the LLM.
         Based on the following document and JSON example format, generate {num_samples} similar JSON objects that extract relevant information from the document.
 
         Document:
@@ -202,6 +204,7 @@ def generate_similar_json(json_example: str, client: genai.Client, num_samples: 
         model = "gemini-2.5-flash-preview-05-20" 
 
         prompt = f"""
+        You are an expert in dataset generation for the LLM.
         Based on the following JSON example, generate {num_samples} similar JSON objects with the same structure but different realistic data.
 
         JSON Example:
